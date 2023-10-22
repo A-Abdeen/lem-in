@@ -15,10 +15,22 @@ func CheckLinks(Rooms []Room, links []string) bool {
 	}
 	for i := 0; i < len(Rooms); i++ {
 		if room1 == Colony1.Rooms[i].Name {
+			for _, testinglinks := range Colony1.Rooms[i].Links {
+				if testinglinks == room2 {
+					fmt.Println("Invalid data format: wrong link name")
+					return false
+				}
+			}
 			Colony1.Rooms[i].Links = append(Colony1.Rooms[i].Links, room2)
 			availableRoom1 = true
 		}
 		if room2 == Colony1.Rooms[i].Name {
+			for _, testinglinks := range Colony1.Rooms[i].Links {
+				if testinglinks == room1 {
+					fmt.Println("Invalid data format: wrong link name")
+					return false
+				}
+			}
 			Colony1.Rooms[i].Links = append(Colony1.Rooms[i].Links, room1)
 			availableRoom2 = true
 		}
