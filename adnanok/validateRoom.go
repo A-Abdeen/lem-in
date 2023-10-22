@@ -21,6 +21,11 @@ func ValidateRoom(rooms []string) (int, int) {
 			fmt.Println("Invalid data format: invalid room format")
 			os.Exit(0)
 		}
+		if strings.HasPrefix(current[0], "L") || strings.HasPrefix(current[0], "#") {
+			fmt.Println("Invalid data format: invalid room format")
+			os.Exit(0)
+		}
+
 		xCord, err := strconv.Atoi(current[1])
 		if err != nil {
 			fmt.Println("Invalid data format: invalid room format")
