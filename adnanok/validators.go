@@ -6,8 +6,9 @@ import (
 	"strings"
 )
 
+var Colony1 Colony
+
 func Validate(data string) bool { // Error handling later?
-	var colony Colony
 	isOk := true
 	dataArray := strings.Split(data, "\n")
 	ants, err := strconv.Atoi(dataArray[0])
@@ -15,7 +16,7 @@ func Validate(data string) bool { // Error handling later?
 		fmt.Println("Invalid data format: invalid number of ants")
 		return false
 	}
-	colony.Ants = ants
+	Colony1.Ants = ants
 	var rooms []string
 	var links []string
 	var structStart string
@@ -84,11 +85,6 @@ type Room struct {
 	Name     string
 	X        int
 	Y        int
-	Links    []Link
+	Links    []string
 	Occupied bool
-}
-
-type Link struct {
-	RoomA Room
-	RoomB Room
 }
