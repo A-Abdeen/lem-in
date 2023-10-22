@@ -28,6 +28,7 @@ func ValidateRoom(rooms []string) {
 			fmt.Println("Invalid data format: invalid room format")
 			os.Exit(0)
 		}
+		
 		Colony1.Rooms = append(Colony1.Rooms, Room{Name: current[0], X: xCord, Y: yCord})
 	}
 }
