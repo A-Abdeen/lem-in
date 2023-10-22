@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+var Colony1 Colony
+
 func Validate(data string) bool { // Error handling later?
 	var colony Colony
 	isOk := true
@@ -65,6 +67,7 @@ func Validate(data string) bool { // Error handling later?
 	fmt.Println(ants)
 
 	// Call function that validates rooms
+
 	fmt.Println(rooms)
 
 	// Call function that validates links
