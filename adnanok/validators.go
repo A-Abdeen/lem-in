@@ -21,6 +21,7 @@ func Validate(data string) bool { // Error handling later?
 	var links []string
 	var structStart string
 	var structEnd string
+	var testLinks bool
 	start := false // implement struct func
 	end := false
 	for key, value := range dataArray[1:] {
@@ -68,7 +69,11 @@ func Validate(data string) bool { // Error handling later?
 	// Call function that validates rooms
 	fmt.Println(rooms)
 
-	// Call function that validates links
+	testLinks = CheckLinks(Colony1.Rooms, links)
+	if !testLinks {
+		fmt.Println("Invalid data format: invalid links")
+		return false
+	}
 	fmt.Println(links)
 
 	return isOk
