@@ -10,7 +10,6 @@ var Colony1 Colony
 var ColonyMatrix [][]int
 
 func Validate(data string) bool { // Error handling later?
-	var colony Colony
 	isOk := true
 	dataArray := strings.Split(data, "\n")
 	ants, err := strconv.Atoi(dataArray[0])
@@ -18,11 +17,12 @@ func Validate(data string) bool { // Error handling later?
 		fmt.Println("Invalid data format: invalid number of ants")
 		return false
 	}
-	colony.Ants = ants
+	Colony1.Ants = ants
 	var rooms []string
 	var links []string
 	var structStart string
 	var structEnd string
+	var testLinks bool
 	start := false // implement struct func
 	end := false
 	for key, value := range dataArray[1:] {
@@ -71,7 +71,11 @@ func Validate(data string) bool { // Error handling later?
 
 	fmt.Println(rooms)
 
-	// Call function that validates links
+	testLinks = CheckLinks(Colony1.Rooms, links)
+	if !testLinks {
+		fmt.Println("Invalid data format: invalid links")
+		return false
+	}
 	fmt.Println(links)
 
 	matrix, err := RoomMatrix(Colony1.Rooms, 1, 2)
@@ -94,11 +98,6 @@ type Room struct {
 	Name     string
 	X        int
 	Y        int
-	Links    []Link
+	Links    []string
 	Occupied bool
-}
-
-type Link struct {
-	RoomA Room
-	RoomB Room
 }
