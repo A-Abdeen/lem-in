@@ -6,8 +6,10 @@ import (
 	"strings"
 )
 
-var Colony1 Colony
-var ColonyMatrix [][]int
+var (
+	Colony1      Colony
+	ColonyMatrix [][]int
+)
 
 func Validate(data string) bool { // Error handling later?
 	isOk := true
@@ -68,7 +70,9 @@ func Validate(data string) bool { // Error handling later?
 	fmt.Println(ants)
 
 	// Call function that validates rooms
-
+	for _, value := range rooms {
+		ValidateRoom(value)
+	}
 	fmt.Println(rooms)
 
 	testLinks = CheckLinks(Colony1.Rooms, links)
@@ -86,6 +90,11 @@ func Validate(data string) bool { // Error handling later?
 	ColonyMatrix = matrix
 	return isOk
 }
+
+var (
+	XMax int
+	YMax int
+)
 
 type Colony struct {
 	Ants  int
