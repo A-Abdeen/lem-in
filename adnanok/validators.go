@@ -6,6 +6,9 @@ import (
 	"strings"
 )
 
+var Colony1 Colony
+var ColonyMatrix [][]int
+
 func Validate(data string) bool { // Error handling later?
 	var colony Colony
 	isOk := true
@@ -70,6 +73,12 @@ func Validate(data string) bool { // Error handling later?
 	// Call function that validates links
 	fmt.Println(links)
 
+	matrix, err := RoomMatrix(Colony1.Rooms, 1, 2)
+	if err != nil {
+		fmt.Println("Invalid data format: duplicate rooms")
+		return false
+	}
+	ColonyMatrix = matrix
 	return isOk
 }
 
