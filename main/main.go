@@ -17,7 +17,7 @@ func main() {
 		fmt.Println(err)
 		os.Exit(0)
 	}
-	fmt.Println(string(data))
+	// fmt.Println(string(data))
 	dataStr := string(data)
 	x := lemin.Validate(dataStr)
 	fmt.Println(x)

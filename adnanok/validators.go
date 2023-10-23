@@ -24,8 +24,6 @@ func Validate(data string) bool { // Error handling later?
 	Colony1.Ants = ants
 	var rooms []string
 	var links []string
-	var structStart string
-	var structEnd string
 	var testLinks bool
 	start := false
 	end := false
@@ -34,7 +32,6 @@ func Validate(data string) bool { // Error handling later?
 			if value == "##start" {
 				if !start {
 					Colony1.Start = ValidateRoom(dataArray[key+2])
-					fmt.Println("START ", structStart)
 					start = true
 				} else {
 					fmt.Println("Invalid data format: found duplicate ##start")
@@ -43,7 +40,6 @@ func Validate(data string) bool { // Error handling later?
 			} else if value == "##end" {
 				if !end {
 					Colony1.End = ValidateRoom(dataArray[key+2])
-					fmt.Println("END ", structEnd)
 					end = true
 				} else {
 					fmt.Println("Invalid data format: found duplicate ##end")
@@ -51,7 +47,8 @@ func Validate(data string) bool { // Error handling later?
 				}
 			}
 		} else if strings.Contains(value, " ") {
-			if value == structEnd || value == structStart {
+			x := strings.Split(value, " ")
+			if x[0] == Colony1.End.Name || x[0] == Colony1.Start.Name {
 				continue
 			} else {
 				rooms = append(rooms, value)
@@ -69,19 +66,17 @@ func Validate(data string) bool { // Error handling later?
 		fmt.Println("Invalid data format: missing start or end")
 		return false
 	}
-	fmt.Println(ants)
 
 	for _, value := range rooms {
 		Colony1.Rooms = append(Colony1.Rooms, ValidateRoom(value))
 	}
-	fmt.Println(rooms)
 
-	testLinks = CheckLinks(Colony1.Rooms, links)
+	testLinks = CheckLinks(links)
 	if !testLinks {
+		fmt.Println(Colony1)
 		fmt.Println("Invalid data format: invalid links")
 		return false
 	}
-	fmt.Println(links)
 
 	matrix, err := RoomMatrix(Colony1.Rooms, 1, 2)
 	if err != nil {
@@ -97,6 +92,7 @@ type Colony struct {
 	Rooms []Room
 	Start Room
 	End   Room
+	Path  [][]string
 }
 
 type Room struct {
@@ -105,4 +101,5 @@ type Room struct {
 	Y        int
 	Links    []string
 	Occupied bool
+	Occupier int
 }
