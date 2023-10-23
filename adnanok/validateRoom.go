@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func ValidateRoom(value string) {
+func ValidateRoom(value string) Room {
 	current := strings.Split(value, " ")
 	if len(current) != 3 {
 		fmt.Println("Invalid data format: invalid room format")
@@ -21,7 +21,6 @@ func ValidateRoom(value string) {
 		fmt.Println("Invalid data format: invalid room format")
 		os.Exit(0)
 	}
-
 	xCord, err := strconv.Atoi(current[1])
 	if err != nil {
 		fmt.Println("Invalid data format: invalid room format")
@@ -38,6 +37,5 @@ func ValidateRoom(value string) {
 	if yCord < YMax {
 		YMax = yCord
 	}
-
-	Colony1.Rooms = append(Colony1.Rooms, Room{Name: current[0], X: xCord, Y: yCord})
+	return Room{Name: current[0], X: xCord, Y: yCord}
 }

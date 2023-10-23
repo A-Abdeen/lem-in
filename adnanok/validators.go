@@ -8,7 +8,9 @@ import (
 
 var (
 	Colony1      Colony
-	ColonyMatrix [][]int
+	ColonyMatrix [][]Room
+	XMax         int
+	YMax         int
 )
 
 func Validate(data string) bool { // Error handling later?
@@ -25,13 +27,13 @@ func Validate(data string) bool { // Error handling later?
 	var structStart string
 	var structEnd string
 	var testLinks bool
-	start := false // implement struct func
+	start := false
 	end := false
 	for key, value := range dataArray[1:] {
 		if strings.HasPrefix(value, "##") {
 			if value == "##start" {
 				if !start {
-					structStart = dataArray[key+2]
+					Colony1.Start = ValidateRoom(dataArray[key+2])
 					fmt.Println("START ", structStart)
 					start = true
 				} else {
@@ -40,7 +42,7 @@ func Validate(data string) bool { // Error handling later?
 				}
 			} else if value == "##end" {
 				if !end {
-					structEnd = dataArray[key+2]
+					Colony1.End = ValidateRoom(dataArray[key+2])
 					fmt.Println("END ", structEnd)
 					end = true
 				} else {
@@ -69,9 +71,8 @@ func Validate(data string) bool { // Error handling later?
 	}
 	fmt.Println(ants)
 
-	// Call function that validates rooms
 	for _, value := range rooms {
-		ValidateRoom(value)
+		Colony1.Rooms = append(Colony1.Rooms, ValidateRoom(value))
 	}
 	fmt.Println(rooms)
 
@@ -90,11 +91,6 @@ func Validate(data string) bool { // Error handling later?
 	ColonyMatrix = matrix
 	return isOk
 }
-
-var (
-	XMax int
-	YMax int
-)
 
 type Colony struct {
 	Ants  int
