@@ -72,18 +72,19 @@ func Validate(data string) bool { // Error handling later?
 	}
 
 	testLinks = CheckLinks(links)
+	fmt.Println(Colony1)
 	if !testLinks {
-		fmt.Println(Colony1)
+		
 		fmt.Println("Invalid data format: invalid links")
 		return false
 	}
 
-	matrix, err := RoomMatrix(Colony1.Rooms, 1, 2)
-	if err != nil {
-		fmt.Println("Invalid data format: duplicate rooms")
-		return false
-	}
-	ColonyMatrix = matrix
+// 	matrix, err := RoomMatrix(Colony1.Rooms, 1, 2)
+// 	if err != nil {
+// 		fmt.Println("Invalid data format: duplicate rooms")
+// 		return false
+// 	}
+// 	ColonyMatrix = matrix
 	return isOk
 }
 
