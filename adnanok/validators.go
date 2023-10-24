@@ -11,6 +11,7 @@ var (
 	ColonyMatrix [][]Room
 	XMax         int
 	YMax         int
+	TotalPaths   string
 )
 
 func Validate(data string) bool { // Error handling later?
@@ -78,7 +79,15 @@ func Validate(data string) bool { // Error handling later?
 		fmt.Println("Invalid data format: invalid links")
 		return false
 	}
-
+	var path []string
+	path = append(path, Colony1.Start.Name)
+	FindPaths(path) // Gets total paths as a string 
+	totalPathsArray := strings.Split(TotalPaths, "!")    // change paths from string to [][]string
+	for i:=0;i<len(totalPathsArray);i++{
+		totalPathsArrayNew := strings.Split(totalPathsArray[i], " ")
+		Colony1.Paths = append(Colony1.Paths, totalPathsArrayNew)
+	}
+fmt.Println(Colony1.Paths)
 // 	matrix, err := RoomMatrix(Colony1.Rooms, 1, 2)
 // 	if err != nil {
 // 		fmt.Println("Invalid data format: duplicate rooms")
@@ -93,7 +102,7 @@ type Colony struct {
 	Rooms []Room
 	Start Room
 	End   Room
-	Path  [][]string
+	Paths  [][]string
 }
 
 type Room struct {
@@ -103,4 +112,5 @@ type Room struct {
 	Links    []string
 	Occupied bool
 	Occupier int
+	NumOfAnts int
 }
