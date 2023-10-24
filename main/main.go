@@ -17,8 +17,12 @@ func main() {
 		fmt.Println(err)
 		os.Exit(0)
 	}
-	// fmt.Println(string(data))
-	dataStr := string(data)
+	var dataModified []byte
+	for i:= 0;i<len(data);i++{
+		if data[i] != 13 {
+		dataModified = append(dataModified, data[i])}
+	}
+	dataStr := string(dataModified)
 	x := lemin.Validate(dataStr)
 	fmt.Println(x)
 }
