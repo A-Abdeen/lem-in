@@ -76,10 +76,12 @@ func Validate(data string) {
 	path = append(path, Colony1.Start.Name)
 	FindPaths(path)                                   // Gets total paths as a string
 	totalPathsArray := strings.Split(TotalPaths, "!") // change paths from string to [][]string
-	for i := 0; i < len(totalPathsArray); i++ {
+	for i := 0; i < len(totalPathsArray)-1; i++ {
 		totalPathsArrayNew := strings.Split(totalPathsArray[i], " ")
 		Colony1.Paths = append(Colony1.Paths, totalPathsArrayNew)
 	}
+	Colony1.Paths = SortPaths(Colony1.Paths)
+	UpdateLinks()
 	Colony1.Matrix = RoomMatrix(Colony1.Rooms, XMax, YMax) // WIP
 }
 
@@ -97,7 +99,12 @@ type Room struct {
 	X         int
 	Y         int
 	Links     []string
+	NewLinks  []FinalLinks
 	Occupied  bool
 	Occupier  int
 	NumOfAnts int
+}
+type FinalLinks struct {
+	ForwardLinks  string
+	RoomsToTheEnd int
 }
