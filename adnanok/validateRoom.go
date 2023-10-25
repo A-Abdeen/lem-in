@@ -1,8 +1,7 @@
 package lemin
 
 import (
-	"fmt"
-	"os"
+	"log"
 	"strconv"
 	"strings"
 )
@@ -10,26 +9,21 @@ import (
 func ValidateRoom(value string) Room {
 	current := strings.Split(value, " ")
 	if len(current) != 3 {
-		fmt.Println("Invalid data format: invalid room format")
-		os.Exit(0)
+		log.Fatalf("Invalid data format: invalid room format")
 	}
 	if current[0] == "" || current[1] == "" || current[2] == "" {
-		fmt.Println("Invalid data format: invalid room format")
-		os.Exit(0)
+		log.Fatalf("Invalid data format: invalid room format")
 	}
 	if strings.HasPrefix(current[0], "L") || strings.HasPrefix(current[0], "#") {
-		fmt.Println("Invalid data format: invalid room format")
-		os.Exit(0)
+		log.Fatalf("Invalid data format: invalid room format")
 	}
 	xCord, err := strconv.Atoi(current[1])
 	if err != nil {
-		fmt.Println("Invalid data format: invalid room format")
-		os.Exit(0)
+		log.Fatalf("Invalid data format: invalid room format")
 	}
 	yCord, err := strconv.Atoi(current[2])
 	if err != nil {
-		fmt.Println("Invalid data format: invalid room format")
-		os.Exit(0)
+		log.Fatalf("Invalid data format: invalid room format")
 	}
 	if xCord > XMax {
 		XMax = xCord

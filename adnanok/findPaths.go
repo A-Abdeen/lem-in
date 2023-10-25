@@ -1,6 +1,6 @@
 package lemin
 
-func FindPaths(path []string) bool {
+func FindPaths(path []string) {
 	var selectedRoom Room
 	which := path[len(path)-1]
 	if which == Colony1.End.Name { // if the final string in the array path is the END add the data to the string and return
@@ -12,16 +12,16 @@ func FindPaths(path []string) bool {
 			} 
 		}
 		TotalPaths = TotalPaths + "!"
-		return true
+		return
 	}
-	for i := 0; i < len(Colony1.Rooms); i++ { // find the last string and add the data of the Room which matches the name
-		if which == Colony1.Start.Name {
-			selectedRoom = Colony1.Start
-			break
-		}
-		if which == Colony1.Rooms[i].Name {
-			selectedRoom = Colony1.Rooms[i]
-			break
+	if which == Colony1.Start.Name {
+		selectedRoom = Colony1.Start
+	} else {
+		for i := 0; i < len(Colony1.Rooms); i++ { // find the last string and add the data of the Room which matches the name
+			if which == Colony1.Rooms[i].Name {
+				selectedRoom = Colony1.Rooms[i]
+				break
+			}
 		}
 	}
 	for i := 0; i < len(selectedRoom.Links); i++ { // check all the links for the selected link
@@ -39,5 +39,5 @@ func FindPaths(path []string) bool {
 		newpath = append(newpath, selectedRoom.Links[i]) // append the new room and enter the function again
 		FindPaths(newpath)
 	}
-	return false
+	return
 }

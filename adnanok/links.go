@@ -1,7 +1,7 @@
 package lemin
 
 import (
-	"fmt"
+	"log"
 	"strings"
 )
 
@@ -10,18 +10,18 @@ func CheckLinks(links []string) bool {
 		availableRoom1 := false // Check if room exists
 		availableRoom2 := false
 		room1, room2, err := strings.Cut(link, "-")
-		if !err || room1 == room2 {
-			fmt.Println("Invalid data format: wrong link name1")
-			return false
+		if !err {
+			log.Fatalf("%v",err)
 		}
-		
+		if room1 == room2 {
+			log.Fatalf("Invalid data format: Link has same room at both ends")
+		}
 		for i := 0; i < len(Colony1.Rooms); i++ {
 			if room1 == Colony1.Rooms[i].Name {// Check if Room1 matches the name of the above link
 				// Validate existing links
 				for _, testinglinks := range Colony1.Rooms[i].Links {
 					if testinglinks == room2 {
-						fmt.Println("Invalid data format: wrong link name2")
-						return false
+						log.Fatalf("Invalid data format: wrong link name")
 					}
 				}
 				// Add Room2 to list of Room1 links
@@ -31,8 +31,7 @@ func CheckLinks(links []string) bool {
 				// Validate existing links if any match a previous link return false
 				for _, testinglinks := range Colony1.Rooms[i].Links {
 					if testinglinks == room1 {
-						fmt.Println("Invalid data format: wrong link name5")
-						return false
+						log.Fatalf("Invalid data format: wrong link name")
 					}
 				}
 				// Add Room1 to list of Room2 links
@@ -47,8 +46,7 @@ func CheckLinks(links []string) bool {
 			// Validate existing links
 			for _, testinglinks := range Colony1.Start.Links {
 				if testinglinks == room1 {
-					fmt.Println("Invalid data format: wrong link name6")
-					return false
+					log.Fatalf("Invalid data format: wrong link name")
 				}
 			}
 			Colony1.Start.Links = append(Colony1.Start.Links, room1)
@@ -57,8 +55,7 @@ func CheckLinks(links []string) bool {
 			// Validate existing links
 			for _, testinglinks := range Colony1.End.Links {
 				if testinglinks == room1 {
-					fmt.Println("Invalid data format: wrong link name7")
-					return false
+					log.Fatalf("Invalid data format: wrong link name")
 				}
 			}
 			// Add Room1 to list of Room2 links
@@ -68,8 +65,7 @@ func CheckLinks(links []string) bool {
 			// Validate existing links
 			for _, testinglinks := range Colony1.Start.Links {
 				if testinglinks == room2 {
-					fmt.Println("Invalid data format: wrong link name3")
-					// return false
+					log.Fatalf("Invalid data format: wrong link name")
 				}
 			}
 			// Add Room2 to list of Room1 links
@@ -80,16 +76,14 @@ func CheckLinks(links []string) bool {
 			// Validate existing links
 			for _, testinglinks := range Colony1.End.Links {
 				if testinglinks == room2 {
-					fmt.Println("Invalid data format: wrong link name4")
-					// return false
+					log.Fatalf("Invalid data format: wrong link name")
 				}
 			}
 			Colony1.End.Links = append(Colony1.End.Links, room2)
 			availableRoom1 = true
 		}
 			if !availableRoom1 || !availableRoom2 {
-				// fmt.Println("ASAP: ", availableRoom1, availableRoom2)
-				return false
+				log.Fatalf("Invalid data format: link issue")
 			}
 	}
 	return true

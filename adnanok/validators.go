@@ -1,7 +1,7 @@
 package lemin
 
 import (
-	"fmt"
+	"log"
 	"strconv"
 	"strings"
 )
@@ -14,13 +14,11 @@ var (
 	TotalPaths   string
 )
 
-func Validate(data string) bool { // Error handling later?
-	isOk := true
+func Validate(data string) {
 	dataArray := strings.Split(data, "\n")
 	ants, err := strconv.Atoi(dataArray[0])
 	if err != nil {
-		fmt.Println("Invalid data format: invalid number of ants")
-		return false
+		log.Fatalf("Invalid data format: invalid number of ants")
 	}
 	Colony1.Ants = ants
 	var rooms []string
@@ -33,18 +31,18 @@ func Validate(data string) bool { // Error handling later?
 			if value == "##start" {
 				if !start {
 					Colony1.Start = ValidateRoom(dataArray[key+2])
+					Colony1.Start.NumOfAnts = Colony1.Ants
+					Colony1.Start.Occupied = true
 					start = true
 				} else {
-					fmt.Println("Invalid data format: found duplicate ##start")
-					return false
+					log.Fatalf("Invalid data format: found duplicate ##start")
 				}
 			} else if value == "##end" {
 				if !end {
 					Colony1.End = ValidateRoom(dataArray[key+2])
 					end = true
 				} else {
-					fmt.Println("Invalid data format: found duplicate ##end")
-					return false
+					log.Fatalf("Invalid data format: found duplicate ##end")
 				}
 			}
 		} else if strings.Contains(value, " ") {
@@ -59,13 +57,11 @@ func Validate(data string) bool { // Error handling later?
 		} else if value == "" {
 			continue
 		} else {
-			fmt.Println("Invalid data format: weird format")
-			return false
+			log.Fatalf("Invalid data format: weird format")
 		}
 	}
 	if !start || !end {
-		fmt.Println("Invalid data format: missing start or end")
-		return false
+		log.Fatalf("Invalid data format: missing start or end")
 	}
 
 	for _, value := range rooms {
@@ -73,44 +69,35 @@ func Validate(data string) bool { // Error handling later?
 	}
 
 	testLinks = CheckLinks(links)
-	fmt.Println(Colony1)
 	if !testLinks {
-		
-		fmt.Println("Invalid data format: invalid links")
-		return false
+		log.Fatalf("Invalid data format: invalid links")
 	}
 	var path []string
 	path = append(path, Colony1.Start.Name)
-	FindPaths(path) // Gets total paths as a string 
-	totalPathsArray := strings.Split(TotalPaths, "!")    // change paths from string to [][]string
-	for i:=0;i<len(totalPathsArray);i++{
+	FindPaths(path)                                   // Gets total paths as a string
+	totalPathsArray := strings.Split(TotalPaths, "!") // change paths from string to [][]string
+	for i := 0; i < len(totalPathsArray); i++ {
 		totalPathsArrayNew := strings.Split(totalPathsArray[i], " ")
 		Colony1.Paths = append(Colony1.Paths, totalPathsArrayNew)
 	}
-fmt.Println(Colony1.Paths)
-// 	matrix, err := RoomMatrix(Colony1.Rooms, 1, 2)
-// 	if err != nil {
-// 		fmt.Println("Invalid data format: duplicate rooms")
-// 		return false
-// 	}
-// 	ColonyMatrix = matrix
-	return isOk
+	Colony1.Matrix = RoomMatrix(Colony1.Rooms, XMax, YMax) // WIP
 }
 
 type Colony struct {
-	Ants  int
-	Rooms []Room
-	Start Room
-	End   Room
+	Ants   int
+	Rooms  []Room
+	Start  Room
+	End    Room
 	Paths  [][]string
+	Matrix [][]Room
 }
 
 type Room struct {
-	Name     string
-	X        int
-	Y        int
-	Links    []string
-	Occupied bool
-	Occupier int
+	Name      string
+	X         int
+	Y         int
+	Links     []string
+	Occupied  bool
+	Occupier  int
 	NumOfAnts int
 }
