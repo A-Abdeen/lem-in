@@ -28,7 +28,7 @@ func ValidateRoom(value string) Room {
 	if xCord > XMax {
 		XMax = xCord
 	}
-	if yCord < YMax {
+	if yCord > YMax {
 		YMax = yCord
 	}
 	return Room{Name: current[0], X: xCord, Y: yCord}

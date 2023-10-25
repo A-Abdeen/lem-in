@@ -6,6 +6,7 @@ var (
 	XMax         int
 	YMax         int
 	TotalPaths   string
+	Matrix       [][]string
 )
 
 type Colony struct {
@@ -15,7 +16,6 @@ type Colony struct {
 	End        Room
 	Paths      [][]string
 	AntTracker []Ant
-	Matrix     [][]Room
 }
 
 type Room struct {

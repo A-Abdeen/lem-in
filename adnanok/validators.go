@@ -1,6 +1,7 @@
 package lemin
 
 import (
+	"fmt"
 	"log"
 	"strconv"
 	"strings"
@@ -62,6 +63,8 @@ func Validate(data string) {
 	for i := 1; i <= Colony1.Ants; i++ {
 		Colony1.AntTracker = append(Colony1.AntTracker, Ant{i, Colony1.Start})
 	}
+	Matrix = RoomMatrix(Colony1.Rooms, XMax, YMax)
+	// PrintMatrix() // Display static grid with plotted rooms
 	testLinks = CheckLinks(links)
 	if !testLinks {
 		log.Fatalf("Invalid data format: invalid links")
@@ -76,5 +79,16 @@ func Validate(data string) {
 	}
 	Colony1.Paths = SortPaths(Colony1.Paths)
 	UpdateLinks()
-	Colony1.Matrix = RoomMatrix(Colony1.Rooms, XMax, YMax) // WIP
+}
+
+func PrintMatrix() {
+	for i := 0; i < YMax+2; i++ {
+		for j := 0; j < XMax+2; j++ {
+			if Matrix[j][i] == "" {
+				Matrix[j][i] = "_"
+			}
+			fmt.Print(Matrix[j][i])
+		}
+		fmt.Println()
+	}
 }
