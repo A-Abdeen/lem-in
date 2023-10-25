@@ -6,14 +6,6 @@ import (
 	"strings"
 )
 
-var (
-	Colony1      Colony
-	ColonyMatrix [][]Room
-	XMax         int
-	YMax         int
-	TotalPaths   string
-)
-
 func Validate(data string) {
 	dataArray := strings.Split(data, "\n")
 	ants, err := strconv.Atoi(dataArray[0])
@@ -67,7 +59,9 @@ func Validate(data string) {
 	for _, value := range rooms {
 		Colony1.Rooms = append(Colony1.Rooms, ValidateRoom(value))
 	}
-
+	for i := 1; i <= Colony1.Ants; i++ {
+		Colony1.AntTracker = append(Colony1.AntTracker, Ant{i, Colony1.Start})
+	}
 	testLinks = CheckLinks(links)
 	if !testLinks {
 		log.Fatalf("Invalid data format: invalid links")
@@ -83,28 +77,4 @@ func Validate(data string) {
 	Colony1.Paths = SortPaths(Colony1.Paths)
 	UpdateLinks()
 	Colony1.Matrix = RoomMatrix(Colony1.Rooms, XMax, YMax) // WIP
-}
-
-type Colony struct {
-	Ants   int
-	Rooms  []Room
-	Start  Room
-	End    Room
-	Paths  [][]string
-	Matrix [][]Room
-}
-
-type Room struct {
-	Name      string
-	X         int
-	Y         int
-	Links     []string
-	NewLinks  []FinalLinks
-	Occupied  bool
-	Occupier  int
-	NumOfAnts int
-}
-type FinalLinks struct {
-	ForwardLinks  string
-	RoomsToTheEnd int
 }
