@@ -1,8 +1,8 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
+	// "encoding/json"
+	// "fmt"
 	lemin "lemin/adnanok"
 	"log"
 	"os"
@@ -29,9 +29,9 @@ func main() {
 	}
 	dataStr := string(dataModified)
 	lemin.Validate(dataStr)
-	PrintJSON(lemin.Colony1)
+	// PrintJSON(lemin.Colony1.Start)
 }
-func PrintJSON(obj interface{}) {
-	bytes, _ := json.MarshalIndent(obj, "\t", "\t")
-	fmt.Println(string(bytes))
-}
+// func PrintJSON(obj interface{}) {
+// 	bytes, _ := json.MarshalIndent(obj, "\t", "\t")
+// 	fmt.Println(string(bytes))
+// }

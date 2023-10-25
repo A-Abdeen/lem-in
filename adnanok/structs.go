@@ -31,6 +31,7 @@ type Room struct {
 type FinalLinks struct {
 	ForwardLinks  string
 	RoomsToTheEnd int
+	lengthOfPath  int
 }
 
 type Ant struct {

@@ -59,9 +59,7 @@ func Validate(data string) {
 	for _, value := range rooms {
 		Colony1.Rooms = append(Colony1.Rooms, ValidateRoom(value))
 	}
-	for i := 1; i <= Colony1.Ants; i++ {
-		Colony1.AntTracker = append(Colony1.AntTracker, Ant{i, Colony1.Start})
-	}
+
 	testLinks = CheckLinks(links)
 	if !testLinks {
 		log.Fatalf("Invalid data format: invalid links")
@@ -76,5 +74,9 @@ func Validate(data string) {
 	}
 	Colony1.Paths = SortPaths(Colony1.Paths)
 	UpdateLinks()
+		for i := 1; i <= Colony1.Ants; i++ {
+		Colony1.AntTracker = append(Colony1.AntTracker, Ant{i, Colony1.Start})
+	}
+	MoveAnts()
 	Colony1.Matrix = RoomMatrix(Colony1.Rooms, XMax, YMax) // WIP
 }
