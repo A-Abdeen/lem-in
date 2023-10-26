@@ -78,13 +78,28 @@ func Validate(data string) {
 		Colony1.Paths = append(Colony1.Paths, totalPathsArrayNew)
 	}
 	Colony1.Paths = SortPaths(Colony1.Paths)
-	// fmt.Println(len(Colony1.Paths[86]))
+	// fmt.Println((Colony1.Paths))
 	UpdateLinks()
-	// fmt.Println(Colony1.Rooms)
+	fmt.Println(Colony1.Rooms)
 	for i := 1; i <= Colony1.Ants; i++ {
 		Colony1.AntTracker = append(Colony1.AntTracker, Ant{i, Colony1.Start})
 	}
-	MoveAnts()
+	
+	for h:=7;h>0;h++{
+		var colonytemp Colony
+		var colonytemp2 Colony
+		colonytemp2.AntTracker = Colony1.AntTracker
+		colonytemp2.Rooms = Colony1.Rooms
+		colonytemp2.Start = Colony1.Start
+		colonytemp2.End = Colony1.End
+		var finalAnswer string
+	colonytemp, finalAnswer = MoveAnts(colonytemp2, h)
+	// fmt.Print(finalAnswer)
+		if colonytemp.End.NumOfAnts == Colony1.Ants || h>7{
+		fmt.Println(finalAnswer)
+		break
+	}
+}
 }
 
 func PrintMatrix() {

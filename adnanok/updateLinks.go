@@ -2,6 +2,7 @@ package lemin
 
 func UpdateLinks() {
 	var tempFinalLinks FinalLinks
+	
 	for i := 0; i < len(Colony1.Paths); i++ {
 		path := Colony1.Paths[i]
 		for m := 0; m < len(path); m++ {
@@ -11,8 +12,7 @@ func UpdateLinks() {
 					if (m + 1) < len(path) {
 						if (Colony1.Start.NewLinks[k].ForwardLinks) == path[m+1] {
 							linkThere = true
-							break
-						}
+							}
 					}
 				}
 				if (m+1) < len(path) && !linkThere {

@@ -1,38 +1,38 @@
 package lemin
 
 import (
-	"fmt"
+	// "fmt"
 	"strconv"
 )
 
-func MoveAnts() {
-	for h := 0; h >= 0; h++ {
+func MoveAnts(colony2 Colony, numbOfTurns int)(Colony, string) {
+	var finalAnswer string
 		movedAntToEnd := false
-		if Colony1.Ants == Colony1.End.NumOfAnts {
-			break
-		}
-		for i := 0; i < len(Colony1.AntTracker); i++ { //loop over ants one at a time
-			for j := 0; j < len(Colony1.AntTracker[i].Location.NewLinks); j++ { //loop over the links of the room that the ant is in
-				currentRoom := Colony1.AntTracker[i].Location
-				nextRoomLink := Colony1.AntTracker[i].Location.NewLinks[j].ForwardLinks
+		for NumbOfTurns:=0;NumbOfTurns<numbOfTurns;NumbOfTurns++{
+		for i := 0; i < len(colony2.AntTracker); i++ { //loop over ants one at a time
+		
+			for j := 0; j < len(colony2.AntTracker[i].Location.NewLinks); j++ { //loop over the links of the room that the ant is in
+				currentRoom := colony2.AntTracker[i].Location
+				nextRoomLink := colony2.AntTracker[i].Location.NewLinks[j].ForwardLinks
 				movedAnt := false
-				for k := 0; k < len(Colony1.Rooms); k++ { // check if the room that the ant links to is not Occupied
-					if nextRoomLink == Colony1.End.Name && !movedAntToEnd{
-						if currentRoom.Name == Colony1.Start.Name {
+				for k := 0; k < len(colony2.Rooms); k++ { // check if the room that the ant links to is not Occupied
+					if nextRoomLink == colony2.End.Name && !movedAntToEnd{
+						if currentRoom.Name == colony2.Start.Name {
 						movedAntToEnd = true}
 						movedAnt = true
-						fmt.Print("L" + strconv.Itoa(Colony1.AntTracker[i].Number) + "-" + Colony1.End.Name + "\t")
-						Colony1.End.NumOfAnts++
-						Colony1.AntTracker[i].Location = Colony1.End
+						finalAnswer = finalAnswer + "L" + strconv.Itoa(colony2.AntTracker[i].Number) + "-" + colony2.End.Name + "\t"
+						
+						colony2.End.NumOfAnts++
+						colony2.AntTracker[i].Location = colony2.End
 						break
 					}
-					if Colony1.Rooms[k].Name == nextRoomLink {
-						// fmt.Println(Colony1.AntTracker[i].Location.NewLinks[j].RoomsToTheEnd, Colony1.AntTracker[i].Location.NewLinks[0].lengthOfPath, Colony1.Start.NumOfAnts, Colony1.End.NumOfAnts)
-						if ((Colony1.AntTracker[i].Location.NewLinks[j].RoomsToTheEnd - Colony1.AntTracker[i].Location.NewLinks[0].RoomsToTheEnd)>(Colony1.Start.NumOfAnts+2)) || Colony1.AntTracker[i].Location.NewLinks[j].ForwardLinks == "G0"{
-						} else if !Colony1.Rooms[k].Occupied {
-							Colony1.Rooms[k].Occupied = true
-							fmt.Print("L" + strconv.Itoa(Colony1.AntTracker[i].Number) + "-" + Colony1.Rooms[k].Name + "\t")
-							Colony1.AntTracker[i].Location = Colony1.Rooms[k]
+					if colony2.Rooms[k].Name == nextRoomLink {
+						// fmt.Println(colony2.AntTracker[i].Location.NewLinks[j].RoomsToTheEnd, colony2.AntTracker[i].Location.NewLinks[0].lengthOfPath, colony2.Start.NumOfAnts, colony2.End.NumOfAnts)
+						if ((colony2.AntTracker[i].Location.NewLinks[j].RoomsToTheEnd - colony2.AntTracker[i].Location.NewLinks[0].RoomsToTheEnd)>(colony2.Start.NumOfAnts+2)) || (colony2.AntTracker[i].Location.NewLinks[j].RoomsToTheEnd > numbOfTurns-2){
+							} else if !colony2.Rooms[k].Occupied {					
+							colony2.Rooms[k].Occupied = true
+							finalAnswer = finalAnswer + ("L" + strconv.Itoa(colony2.AntTracker[i].Number) + "-" + colony2.Rooms[k].Name + "\t")
+							colony2.AntTracker[i].Location = colony2.Rooms[k]
 							movedAnt = true
 							break
 						} else {
@@ -41,12 +41,12 @@ func MoveAnts() {
 					}
 				}
 				if movedAnt {
-					if currentRoom.Name == Colony1.Start.Name {
-						Colony1.Start.NumOfAnts--
+					if currentRoom.Name == colony2.Start.Name {
+						colony2.Start.NumOfAnts--
 					}
-					for m := 0; m < len(Colony1.Rooms); m++ {
-						if currentRoom.Name == Colony1.Rooms[m].Name {
-							Colony1.Rooms[m].Occupied = false
+					for m := 0; m < len(colony2.Rooms); m++ {
+						if currentRoom.Name == colony2.Rooms[m].Name {
+							colony2.Rooms[m].Occupied = false
 							break
 						}
 					}
@@ -54,9 +54,10 @@ func MoveAnts() {
 				}
 			}
 		}
-		if h>20 {
-			break
-		}
-		fmt.Println()
+		// fmt.Println(1)
+	finalAnswer = finalAnswer + "\n"
+	// fmt.Println(ColonyTemp)
 	}
+	
+	return colony2, finalAnswer
 }

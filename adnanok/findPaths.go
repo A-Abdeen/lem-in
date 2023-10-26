@@ -39,5 +39,4 @@ func FindPaths(path []string) {
 		newpath = append(newpath, selectedRoom.Links[i]) // append the new room and enter the function again
 		FindPaths(newpath)
 	}
-	return
 }
