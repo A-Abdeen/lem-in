@@ -78,7 +78,9 @@ func Validate(data string) {
 		Colony1.Paths = append(Colony1.Paths, totalPathsArrayNew)
 	}
 	Colony1.Paths = SortPaths(Colony1.Paths)
+	// fmt.Println(len(Colony1.Paths[86]))
 	UpdateLinks()
+	// fmt.Println(Colony1.Rooms)
 	for i := 1; i <= Colony1.Ants; i++ {
 		Colony1.AntTracker = append(Colony1.AntTracker, Ant{i, Colony1.Start})
 	}

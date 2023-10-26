@@ -61,7 +61,8 @@ func CheckLinks(links []string) bool {
 			// Add Room1 to list of Room2 links
 			Colony1.End.Links = append(Colony1.End.Links, room1)
 			availableRoom2 = true
-		} else if room1 == Colony1.Start.Name {// To check if room2 matches start name
+		} 
+		if room1 == Colony1.Start.Name {// To check if room2 matches start name
 			// Validate existing links
 			for _, testinglinks := range Colony1.Start.Links {
 				if testinglinks == room2 {
