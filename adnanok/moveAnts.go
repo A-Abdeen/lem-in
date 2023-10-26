@@ -28,7 +28,7 @@ func MoveAnts() {
 					}
 					if Colony1.Rooms[k].Name == nextRoomLink {
 						// fmt.Println(Colony1.AntTracker[i].Location.NewLinks[j].RoomsToTheEnd, Colony1.AntTracker[i].Location.NewLinks[0].lengthOfPath, Colony1.Start.NumOfAnts, Colony1.End.NumOfAnts)
-						if ((Colony1.AntTracker[i].Location.NewLinks[j].RoomsToTheEnd - Colony1.AntTracker[i].Location.NewLinks[0].RoomsToTheEnd)>(Colony1.Start.NumOfAnts+2)) || Colony1.AntTracker[i].Location.NewLinks[j].ForwardLinks == "G0"{
+						if ((Colony1.AntTracker[i].Location.NewLinks[j].RoomsToTheEnd - Colony1.AntTracker[i].Location.NewLinks[0].RoomsToTheEnd)>(Colony1.Start.NumOfAnts+2)) || Colony1.AntTracker[i].Location.NewLinks[j].RoomsToTheEnd > Colony1.Ants-3{
 						} else if !Colony1.Rooms[k].Occupied {
 							Colony1.Rooms[k].Occupied = true
 							fmt.Print("L" + strconv.Itoa(Colony1.AntTracker[i].Number) + "-" + Colony1.Rooms[k].Name + "\t")
