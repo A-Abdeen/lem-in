@@ -20,7 +20,7 @@ func Validate(data string) {
 	start := false
 	end := false
 	for key, value := range dataArray[1:] {
-		if strings.HasPrefix(value, "##") {
+		if strings.HasPrefix(value, "#") {
 			if value == "##start" {
 				if !start {
 					Colony1.Start = ValidateRoom(dataArray[key+2])
@@ -64,7 +64,7 @@ func Validate(data string) {
 		Colony1.AntTracker = append(Colony1.AntTracker, Ant{i, Colony1.Start})
 	}
 	Matrix = RoomMatrix(Colony1.Rooms, XMax, YMax)
-	// PrintMatrix() // Display static grid with plotted rooms
+	PrintMatrix() // Display static grid with plotted rooms
 	testLinks = CheckLinks(links)
 	if !testLinks {
 		log.Fatalf("Invalid data format: invalid links")
@@ -79,16 +79,22 @@ func Validate(data string) {
 	}
 	Colony1.Paths = SortPaths(Colony1.Paths)
 	UpdateLinks()
+	for i := 1; i <= Colony1.Ants; i++ {
+		Colony1.AntTracker = append(Colony1.AntTracker, Ant{i, Colony1.Start})
+	}
+	MoveAnts()
 }
 
 func PrintMatrix() {
 	for i := 0; i < YMax+2; i++ {
 		for j := 0; j < XMax+2; j++ {
 			if Matrix[j][i] == "" {
-				Matrix[j][i] = "_"
+				Matrix[j][i] = "[  ]\t"
 			}
 			fmt.Print(Matrix[j][i])
 		}
 		fmt.Println()
 	}
+	fmt.Println()
+
 }
