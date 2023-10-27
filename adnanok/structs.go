@@ -7,6 +7,9 @@ var (
 	YMax         int
 	TotalPaths   string
 	Matrix       [][]string
+	NumbOfMoves  int
+	FinalAnswer  string
+	BestWayToStart int
 )
 
 type Colony struct {

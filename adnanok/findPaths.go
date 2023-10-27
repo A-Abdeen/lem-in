@@ -12,8 +12,7 @@ func FindPaths(path []string) {
 			}
 		}
 		TotalPaths = TotalPaths + "!"
-		return
-	}
+	} else {
 	if which == Colony1.Start.Name {
 		selectedRoom = Colony1.Start
 	} else {
@@ -39,5 +38,4 @@ func FindPaths(path []string) {
 		newpath = append(newpath, selectedRoom.Links[i]) // append the new room and enter the function again
 		FindPaths(newpath)
 	}
-	return
-}
+}}
