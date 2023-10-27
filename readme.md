@@ -102,8 +102,26 @@ L1-0 L2-6 L3-4
 L2-0 L3-0
 ```
 
+## How Our program works
+
+1- Validate the data given is as required.
+
+2- Seperate the data to: a-number of ants, b- the start room, c- the end room, d- the rooms and the links between the rooms.
+
+3- each room has a boolean which if true shows that the room is occupied.
+
+4- Find all the paths from start to the end and then arrange them from shortest to longest.
+
+5- Add the links to a room struct starting from the one with the shortest way to the end.
+
+6- Create an Ant tracker as a an array which contains the number of the ant and which room its in.
+
+7- Then loop over the ant tracker and check the room its in and what it links to, if the link is not occupied move the ant.
+
+8- if the number of ants in the end room matches the number of ants given the program well stop and you well get the result.
+
 ## Contributors
 
+- Ahmed Abdeen
+- Ahmed AlAli
 - Adnan Jaberi
-- Ahmad Al Ali
-- Ahmad Abdeen

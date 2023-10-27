@@ -22,13 +22,13 @@ func main() {
 		log.Fatalf("%v", err)
 	}
 	var dataModified []byte
-	for i := 0; i < len(data); i++ {
-		if data[i] != 13 {
+	for i := 0; i < len(data); i++ { // for loop to deal with windows  
+		if data[i] != 13 { // windows shows byte 13 and 10 for new line
 			dataModified = append(dataModified, data[i])
 		}
 	}
 	dataStr := string(dataModified)
-	lemin.Validate(dataStr)
+	lemin.GetAnswer(dataStr)
 	// PrintJSON(lemin.Colony1.Start)
 }
 // func PrintJSON(obj interface{}) {
