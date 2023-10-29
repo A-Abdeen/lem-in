@@ -9,7 +9,7 @@ import (
 func GetAnswer(data string) {
 	dataArray := strings.Split(data, "\n") 
 	ants, err := strconv.Atoi(dataArray[0])						  // first line in the text file should be number of ants if not return error
-	if err != nil {             
+	if err != nil || ants <= 0{             
 		log.Fatalf("Invalid data format: invalid number of ants")
 	}
 	Colony1.Ants = ants											  // Colony is a type created which well hold all the data arranged.
