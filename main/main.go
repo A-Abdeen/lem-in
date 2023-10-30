@@ -3,7 +3,7 @@ package main
 import (
 	// "encoding/json"
 	// "fmt"
-	lemin "lemin/adnanok"
+	lemin "lemin/functions"
 	"log"
 	"os"
 )
@@ -22,15 +22,19 @@ func main() {
 		log.Fatalf("%v", err)
 	}
 	var dataModified []byte
-	for i := 0; i < len(data); i++ { // for loop to deal with windows  
+	for i := 0; i < len(data); i++ { // for loop to deal with windows
 		if data[i] != 13 { // windows shows byte 13 and 10 for new line
 			dataModified = append(dataModified, data[i])
 		}
 	}
 	dataStr := string(dataModified)
 	lemin.GetAnswer(dataStr)
-	// PrintJSON(lemin.Colony1.Start)
+	/*
+		// View entire Colony as a struct
+		PrintJSON(lemin.Colony1)
+	*/
 }
+
 // func PrintJSON(obj interface{}) {
 // 	bytes, _ := json.MarshalIndent(obj, "\t", "\t")
 // 	fmt.Println(string(bytes))
