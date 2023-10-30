@@ -19,7 +19,7 @@ func GetAnswer(data string) {
 		Colony1.Rooms = append(Colony1.Rooms, ValidateRoom(value)) // use the func to divide the data for each room
 	}
 	Matrix = RoomMatrix(Colony1.Rooms, XMax, YMax)
-	//PrintMatrix() 												  // Display static grid with plotted rooms
+	// PrintMatrix() 												  // Display static grid with plotted rooms
 	testLinks = CheckLinks(links) // check the links for error and add the links to each room
 	if !testLinks {
 		log.Fatalf("Invalid data format: invalid links")
@@ -27,6 +27,9 @@ func GetAnswer(data string) {
 	var path []string
 	path = append(path, Colony1.Start.Name)  // find paths starting with start room
 	FindPaths(path)                          // well add all the paths from start to end to Colony1
+	if TotalPaths == "" {
+		log.Fatalf("Invalid data format: no links to end")
+	}
 	StringToArray()                          // change paths from string to [][]string
 	Colony1.Paths = SortPaths(Colony1.Paths) // sort paths from shortest to longest
 	UpdateLinks()                            // add links only if they are moving forward and arranged from the link with the shortest path to the longest

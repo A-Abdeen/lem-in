@@ -29,10 +29,10 @@ func main() {
 	}
 	dataStr := string(dataModified)
 	lemin.GetAnswer(dataStr)
-	/*
+
 		// View entire Colony as a struct
-		PrintJSON(lemin.Colony1)
-	*/
+		// PrintJSON(lemin.Colony1)
+
 }
 
 // func PrintJSON(obj interface{}) {
