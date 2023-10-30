@@ -31,5 +31,16 @@ func ValidateRoom(value string) Room {
 	if yCord > YMax {
 		YMax = yCord
 	}
+	if (Colony1.End.Name == current[0]) {
+		log.Fatalf("Invalid data format: duplicate room names")
+	}
+	if (Colony1.Start.Name == current[0]) {
+		log.Fatalf("Invalid data format: duplicate room names")
+	}
+	for i:=0;i<len(Colony1.Rooms);i++{
+		if (Colony1.Rooms[i].Name == current[0]){
+			log.Fatalf("Invalid data format: duplicate room names")
+		}
+	}
 	return Room{Name: current[0], X: xCord, Y: yCord}
 }

@@ -1,10 +1,13 @@
 package lemin
 
-import ("strings"
-		"log")
+import (
+	"log"
+	"strings"
+)
 func ValidateText(dataArray []string)([]string, []string){
 var rooms []string
 var links []string
+var count int
 start := false // boolean to check if there is a start room and end room
 end := false
 for key, value := range dataArray[1:] {
@@ -29,6 +32,7 @@ for key, value := range dataArray[1:] {
 	} else if strings.Contains(value, " ") { 
 		x := strings.Split(value, " ") // split the data so as to not add the end and start room to the rooms array
 		if x[0] == Colony1.End.Name || x[0] == Colony1.Start.Name {
+			count++
 			continue
 		} else {
 			rooms = append(rooms, value)
@@ -43,6 +47,9 @@ for key, value := range dataArray[1:] {
 }
 if !start || !end {
 	log.Fatalf("Invalid data format: missing start or end")
+}
+if count > 2 {
+	log.Fatalf("Invalid data format: duplicate room names")
 }
 return rooms, links
 }
